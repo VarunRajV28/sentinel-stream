@@ -36,3 +36,22 @@ export async function fetchUserHistory(userId) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
+/**
+ * Fetch top 10 transacting users (Whales).
+ * @returns {Promise<Array<{user_id: string, total_amount: number}>>}
+ */
+export async function fetchWhales() {
+  const res = await fetch("/api/metrics/whales");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+/**
+ * Fetch global authentication funnel statistics.
+ * @returns {Promise<{success: number, failed: number, total: number, failure_rate: number}>}
+ */
+export async function fetchAuth() {
+  const res = await fetch("/api/metrics/auth");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}

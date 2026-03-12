@@ -6,7 +6,7 @@ import happybase
 
 from app.core.config   import settings, BRUTE_FORCE_THRESH, HEX_SALTS, TABLE_EVENT_LEDGER
 from app.db.hbase_pool import reverse_ts_to_minute
-from app.state         import auth_funnel, device_counts, minute_revenue, user_totals
+from app.state         import auth_funnel, device_counts, minute_revenue
 from app.services.ws_manager import manager
 
 log = logging.getLogger("ids.scanner.ledger")
@@ -129,3 +129,4 @@ async def ledger_scanner_loop() -> None:
             log.exception("Ledger scanner error — retrying next cycle")
 
         await asyncio.sleep(1)
+
