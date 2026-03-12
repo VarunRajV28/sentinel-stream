@@ -1,6 +1,0 @@
-sqlalchemy[asyncio]
-asyncpg
-fastapi
-python-dotenv
-psycopg2-binary
-httpx
