@@ -102,8 +102,8 @@ async def ledger_scanner_loop() -> None:
                         if ev_type == "transfer_attempt" and status == "SUCCESS":
                             minute_revenue[reverse_ts_to_minute(reverse_ts_str)] += amt
 
-                        # ── Whale tracker ────────────────────────────────────
-                        if amt > 0:
+                        # ── Whale tracker (Successful money moves only) ───────────────
+                        if ev_type == "transfer_attempt" and status == "SUCCESS" and amt > 0:
                             user_totals[user_id] += amt
 
                         # ── Device hit counter ───────────────────────────────
@@ -152,3 +152,4 @@ async def ledger_scanner_loop() -> None:
             log.exception("Ledger scanner error — retrying next cycle")
 
         await asyncio.sleep(1)
+
