@@ -67,9 +67,9 @@ export default function RevenueChart() {
   }, []);
 
   return (
-    <div className="rounded-lg border border-slate-800 bg-slate-900/60 glow-emerald">
+    <div className="h-full flex flex-col rounded-lg border border-slate-800 bg-slate-900/60 glow-emerald">
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800">
+      <div className="shrink-0 flex items-center gap-2 px-4 py-3 border-b border-slate-800">
         <TrendingUp className="w-4 h-4 text-cyber-emerald" />
         <h2 className="text-sm font-semibold text-slate-200 tracking-wide uppercase">
           Transaction Volume
@@ -80,7 +80,7 @@ export default function RevenueChart() {
       </div>
 
       {/* Chart */}
-      <div className="p-4">
+      <div className="flex-1 p-4">
         {error ? (
           <div className="flex items-center justify-center h-64 text-sm text-red-400">
             Failed to load revenue data: {error}

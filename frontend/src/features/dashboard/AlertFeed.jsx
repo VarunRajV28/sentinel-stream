@@ -19,9 +19,9 @@ function PatternBadge({ pattern }) {
 
 export default function AlertFeed({ alerts }) {
   return (
-    <div className="rounded-lg border border-slate-800 bg-slate-900/60 glow-blue">
+    <div className="h-full flex flex-col rounded-lg border border-slate-800 bg-slate-900/60 glow-blue">
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800">
+      <div className="shrink-0 flex items-center gap-2 px-4 py-3 border-b border-slate-800">
         <Terminal className="w-4 h-4 text-cyber-blue" />
         <h2 className="text-sm font-semibold text-slate-200 tracking-wide uppercase">
           Incoming Alerts
@@ -32,7 +32,7 @@ export default function AlertFeed({ alerts }) {
       </div>
 
       {/* Scrollable feed */}
-      <div className="alert-feed overflow-y-auto max-h-[420px] p-2 space-y-1">
+      <div className="alert-feed flex-1 overflow-y-auto max-h-[420px] p-2 space-y-1">
         {alerts.length === 0 ? (
           <div className="flex items-center justify-center py-16 text-slate-600 text-sm">
             <span className="font-mono">Waiting for alerts...</span>
