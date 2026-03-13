@@ -127,7 +127,7 @@ def worker(worker_id):
                         d = random.choice(BOT_DEVICES)
                         d_salt = BOT_DEVICE_SALTS[d]
                         ip = "45.33.22.11"
-                        victims = random.sample(USERS, 5)
+                        victims = random.sample(USERS, 10)
                         
                         for v in victims:
                             current_ts += 1
