@@ -1,4 +1,4 @@
-import { User, Hash, DollarSign, Loader2 } from "lucide-react";
+import { User, Hash, Loader2, IndianRupee } from "lucide-react";
 import { formatCurrency } from "../../utils/format";
 
 function StatCard({ icon: Icon, label, value, color }) {
@@ -49,7 +49,7 @@ export default function UserProfile({ profile, loading }) {
         color="text-cyber-emerald"
       />
       <StatCard
-        icon={DollarSign}
+        icon={IndianRupee}
         label="Total Volume"
         value={formatCurrency(profile.total_tx_sum_usd)}
         color="text-cyber-yellow"

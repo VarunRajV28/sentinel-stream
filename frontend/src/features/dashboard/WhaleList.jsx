@@ -1,4 +1,4 @@
-import { Crown, DollarSign } from "lucide-react";
+import { Crown } from "lucide-react";
 import { formatCurrency } from "../../utils/format";
 
 export default function WhaleList({ whales }) {

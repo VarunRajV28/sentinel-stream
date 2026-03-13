@@ -6,6 +6,8 @@ export function useAlerts(maxAlerts = 50) {
   const wsRef = useRef(null);
   const retryDelay = useRef(1000);
   const mountedRef = useRef(true);
+  const retryTimerRef = useRef(null);
+  const heartbeatRef = useRef(null);
 
   const connect = useCallback(() => {
     if (!mountedRef.current) return;
@@ -18,6 +20,14 @@ export function useAlerts(maxAlerts = 50) {
     ws.onopen = () => {
       setIsConnected(true);
       retryDelay.current = 1000;
+
+      // Keep idle proxies and intermediaries from dropping the WS connection.
+      if (heartbeatRef.current) clearInterval(heartbeatRef.current);
+      heartbeatRef.current = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send("ping");
+        }
+      }, 25000);
     };
 
     ws.onmessage = (event) => {
@@ -33,8 +43,12 @@ export function useAlerts(maxAlerts = 50) {
 
     ws.onclose = () => {
       setIsConnected(false);
+      if (heartbeatRef.current) {
+        clearInterval(heartbeatRef.current);
+        heartbeatRef.current = null;
+      }
       if (mountedRef.current) {
-        setTimeout(() => {
+        retryTimerRef.current = setTimeout(() => {
           retryDelay.current = Math.min(retryDelay.current * 2, 30000);
           connect();
         }, retryDelay.current);
@@ -51,6 +65,14 @@ export function useAlerts(maxAlerts = 50) {
     connect();
     return () => {
       mountedRef.current = false;
+      if (retryTimerRef.current) {
+        clearTimeout(retryTimerRef.current);
+        retryTimerRef.current = null;
+      }
+      if (heartbeatRef.current) {
+        clearInterval(heartbeatRef.current);
+        heartbeatRef.current = null;
+      }
       wsRef.current?.close();
     };
   }, [connect]);
